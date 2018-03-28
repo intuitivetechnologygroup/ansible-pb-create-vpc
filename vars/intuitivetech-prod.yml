@@ -1,0 +1,28 @@
+---
+# vars file for ansible-pb-create-vpc
+environments:
+  us-west-2: # a, b, and c are only valid subnets here
+    cfn_template_bucket: cf-templates-tx65jjjbpwbx-us-west-2
+    dev:
+      vpc: 10.201.0.0/17
+      subnets:
+        external:
+          a: 10.201.0.0/23
+          b: 10.201.4.0/23
+          c: 10.201.8.0/23
+        internal:
+          a: 10.201.32.0/23
+          b: 10.201.40.0/23
+          c: 10.201.48.0/23
+        database:
+          a: 10.201.80.0/23
+          b: 10.201.84.0/23
+          c: 10.201.88.0/23
+        mgmt:
+          a: 10.201.118.0/24
+          b: 10.201.120.0/24
+          c: 10.201.122.0/24
+vpc_ecosystem: mgage
+vpc_environment: "{{environ}}"
+customer_gateway_ip:
+static_routes:

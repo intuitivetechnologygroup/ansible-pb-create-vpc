@@ -1,0 +1,24 @@
+---
+- hosts: localhost
+  vars:
+  tasks:
+    - name: register roles directory
+      stat: path=./roles
+      register: roles_path
+
+    - name: recursivly delete dependencies
+      file: path=./roles state=absent
+      when: roles_path.stat.isdir is defined and roles_path.stat.isdir == true
+
+    - name: register library directory
+      stat: path=./library
+      register: library_path
+
+    - name: recursivly delete dependencies
+      file: path=./library state=absent
+      when: library_path.stat.isdir is defined and library_path.stat.isdir == true
+
+    - name: resolve roles
+      shell: ansible-galaxy install -r requirements.yml -p ./roles/
+      args:
+        creates: ./roles
